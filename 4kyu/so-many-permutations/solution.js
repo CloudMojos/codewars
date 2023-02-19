@@ -1,0 +1,4 @@
+function permutations(string) {
+    
+	return [];
+}
