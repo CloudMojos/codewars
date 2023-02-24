@@ -3,5 +3,5 @@ function solution(arg) {
 }
 
 const arg = null
-const x = solution()
+const x = solution(arg)
 console.log(x)
