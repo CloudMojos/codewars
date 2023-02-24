@@ -1,0 +1,1 @@
+Write a recursive function to find the factorial of a number. The factorial of a number is the product of all positive integers less than or equal to that number. For example, the factorial of 5 is 5 * 4 * 3 * 2 * 1 = 120.
