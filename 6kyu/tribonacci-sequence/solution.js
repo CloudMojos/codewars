@@ -1,14 +1,14 @@
 // This function should return an array, not a single number
 function tribonacci(signature, n) {
-    let tribonacciArray = signature.slice(); 
-    for (var i = 3; i < n; i++) {
-        tribonacciArray.push(tribonacciArray[i-1] + tribonacciArray[i-2] + tribonacciArray[i-3]); // Calculate the next number in the sequence and add it to the array
+    let tribonacciArray = signature.slice(0, n); 
+    for (var i = 0; i < n - 3; i++) {
+        tribonacciArray.push(tribonacciArray[i] + tribonacciArray[i + 1] + tribonacciArray[i + 2]); // Calculate the next number in the sequence and add it to the array
     }
     return tribonacciArray;
 }
 
 const signature = [1,1,1]
-const n = 10
+const n = 0
 const x = tribonacci(signature, n)
 console.log(x)
 
