@@ -4,6 +4,7 @@ function squareSum(numbers) {
         return sum + (num * num)
     }, 0)
 }
+
 const arg = [0, 3, 4, 5]
 const x = squareSum(arg)
 console.log(x)
