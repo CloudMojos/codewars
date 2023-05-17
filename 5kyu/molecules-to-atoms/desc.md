@@ -16,3 +16,19 @@ As you can see, some formulas have brackets in them. The index outside the brack
 Note that brackets may be round, square or curly and can also be nested. Index after the braces is optional.
 
 # My Journal
+Make a state for each nest while keeping track of the number of elements
+H20
+H is an element because the next character is a number
+atoms = {}
+state = [[H, 1]]
+The next in the iteration is a number, it will be multiplied to all in the current state.
+state = [[H, 2]]
+after multiplying, it will be pushed to the atoms
+atoms = {'H': 2}
+The next iteration is O. It is an element because it is uppercase.
+state = [[O, 1]]
+Since it is the last element in the array, we push it to the atoms
+atoms = {'H': 2, 'O', 1}
+
+
+
