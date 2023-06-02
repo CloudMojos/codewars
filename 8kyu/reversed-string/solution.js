@@ -6,6 +6,9 @@ function solution(arg) {
     return newString
 }
 
-const arg = 'word'
-const x = solution(arg)
-console.log(x)
+let x = solution('world')
+
+// const arg = 'word'
+// const x = solution(arg)
+// console.log(x)
+
