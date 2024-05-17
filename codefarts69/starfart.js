@@ -1,14 +1,19 @@
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+const puppeteer = require('puppeteer');
 
 async function codeWars(url) {
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.log("Error");
-        }
-        const text = await response.text();
-        return text;
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: 'networkidle0' });
+        
+        // Wait for the description element to load
+        await page.waitForSelector('#description');
+
+        // Extract the description element's content
+        const description = await page.$eval('#description', el => el.textContent);
+
+        await browser.close();
+        return description;
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -16,15 +21,9 @@ async function codeWars(url) {
 
 async function main() {
     // Call the function with the URL
-    const htmlText = await codeWars('https://www.codewars.com/kata/53da3dbb4a5168369a0000fe/train/javascript');
+    const description = await codeWars('https://www.codewars.com/kata/53da3dbb4a5168369a0000fe/train/javascript');
     
-    // Create a new JSDOM instance with the fetched HTML text
-    const htmlDOM = new JSDOM(htmlText);
-    
-    // Query the DOM for the desired element
-    const descriptionElement = htmlDOM.window.document.querySelector("#description");
-    
-    console.log(descriptionElement ? descriptionElement.textContent : 'Element not found');
+    console.log(description);
 }
 
 // Run the main function
