@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const puppeteer = require('puppeteer');
 
 async function codeWars(url) {
@@ -9,21 +12,43 @@ async function codeWars(url) {
         // Wait for the description element to load
         await page.waitForSelector('#description');
 
-        // Extract the description element's content
-        const description = await page.$eval('#description', el => el.textContent);
-
-        await browser.close();
-        return description;
+        return { browser, page };
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
 
+async function extractDescription(page) {
+    try {
+        // Extract the description element's content
+        const description = await page.$eval('#description', el => el.textContent);
+        return description;
+    } catch (error) {
+        console.error('Error extracting description:', error);
+    }
+}
+
+async function extractKyuLevel(page) {
+    try {
+        // Extract the description element's content
+        const kyu = await page.$eval('.inner-small-hex > span', el => el.textContent);
+        return kyu;
+    } catch (error) {
+        console.error('Error extracting description:', error);
+    }
+}
+
+
 async function main() {
     // Call the function with the URL
-    const description = await codeWars('https://www.codewars.com/kata/53da3dbb4a5168369a0000fe/train/javascript');
+    const { browser, page } = await codeWars('https://www.codewars.com/kata/53da3dbb4a5168369a0000fe/train/javascript');
     
-    console.log(description);
+    const description = await extractDescription(page);
+    const kyu = await extractKyuLevel(page);
+    console.log(kyu);
+    
+    // Close the browser
+    await browser.close();
 }
 
 // Run the main function
