@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const puppeteer = require('puppeteer');
+const args = process.argv.slice(2);
 
 async function codeWars(url) {
     try {
@@ -69,10 +70,11 @@ function copyPasteFile(source, dest) {
     })    
 }
 
-async function main() {
+async function main(args) {
     // Call the function with the URL
     // const { browser, page } = await codeWars('https://www.codewars.com/kata/53da3dbb4a5168369a0000fe/train/javascript');
-    const { browser, page } = await codeWars('https://www.codewars.com/kata/526d84b98f428f14a60008da/train/javascript');
+    // const { browser, page } = await codeWars('https://www.codewars.com/kata/526d84b98f428f14a60008da/train/javascript');
+    const { browser, page } = await codeWars(args[0]);
     
     const description = await extractDescription(page);
     let kyu = await extractKyuLevel(page);
@@ -105,4 +107,4 @@ async function main() {
 }
 
 // Run the main function
-main();
+main(args);
