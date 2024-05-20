@@ -95,11 +95,10 @@ async function main(args) {
     });
 
     // Save the description to a text file
-    await saveDescriptionToFile(description, folderPath, `${title}.desc`);
+    await saveDescriptionToFile(description.concat("\n").concat(args[0]), folderPath, `${title}.md`);
 
     const tempJS = path.join(__dirname, 'temp.js')
     const destJS = path.join(folderPath, `${title}.js`)
-    console.log(tempJS)
     copyPasteFile(tempJS, destJS);
 
     // Close the browser
