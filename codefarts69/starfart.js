@@ -82,7 +82,7 @@ async function main(args) {
     kyu = kyu[0].concat('kyu');
     let title = await extractTitle(page);
     // But I can't cheat it the same way with the title T.T
-    title = title.replace(/\s/g, "_").toLowerCase();
+    title = title.replace(/\s/g, "_").replace(/[^a-zA-Z0-9\s]/g, "").toLowerCase();
     console.log(description)
 
     const folderPath = path.join(__dirname, '..', kyu, title);

@@ -3,15 +3,16 @@ function solution(arg) {
     let exCounter = 0
 
     arg.split('').forEach((char) => {
-        if (char.toLowerCase() == 'x') {
+        char.toLowerCase()
+        if (char == 'x') {
             exCounter++;
-        } else if (char.toLowerCase() == 'o') {
+        } else if (char == 'o') {
             ohCounter++;
         }
     })
     return exCounter === ohCounter  
 }
 
-const arg = "xxo"
+const arg = "xxoo"
 const x = solution(arg)
 console.log(x)
