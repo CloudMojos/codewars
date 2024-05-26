@@ -9,3 +9,16 @@ Examples
 
 
 https://www.codewars.com/kata/55c45be3b2079eccff00010f/train/javascript
+
+### JOURNAL
+1. Exract the numbers
+    - I am thinking I could split the string into array using spaces
+    - For each word, for each character, if it's a number then store it in an array
+2. Sort the numbers
+    - I could sort it bubble sort w/o pre-built model. just to practice.
+
+
+[3, 4, 2, 1]
+[3, 2, 1, 4]
+[2, 1, 3, 4]
+[1, 2, 3, 4]
