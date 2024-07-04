@@ -1,20 +1,38 @@
 function solution(arg, n) {
     let unique = uniqueArray(arg);
     let collection = createCollection(unique);
+    let result = []
+    console.log(unique);
+
+    console.log(collection);
     for (let i = 0; i < arg.length; i++) {
-        if (collection[arg[i]].length < n) {
-            collection[arg[i]].push(arg[i]);
+        let index = unique.indexOf(arg[i])
+        if (collection[index].length < n) {
+            collection[index].push(arg[i]);
+            result.push(arg[i]);
         }
     }
-    console.log(collection);
-    let result = [];
+    // console.log(collection);
+    
+    // collection.forEach(arr => {
+    //     arr.forEach(v => {
+    //         result.push(v);
+    //     })
+    // })
 
+    // values.forEach(v => {
+    //     v.forEach(e => {
+    //         result.push(e);
+    //     })
+    // })
+
+    return result;
 }
 
 function createCollection(unique) {
-    let collection = {};
+    let collection = [];
     for (let i = 0; i < unique.length; i++) {
-        collection[unique[i]] = [];
+        collection.push([]);
     }
     return collection
 }
@@ -34,6 +52,6 @@ function uniqueArray(array) {
 // console.log(createCollection(arr1));
 
 const arg = [20, 37, 20, 21];
-const n = 1;
+const n = 2;
 const x = solution(arg, n)
 console.log(x)
