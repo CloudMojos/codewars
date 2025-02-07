@@ -9,7 +9,7 @@ async function codeWars(url) {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: 'networkidle0' });
-        
+
         // Wait for the description element to load
         await page.waitForSelector('#description');
 
@@ -22,7 +22,10 @@ async function codeWars(url) {
 async function extractDescription(page) {
     try {
         // Extract the description element's content
-        const description = await page.$eval('#description', el => el.textContent);
+        const description = await page.$eval(
+            '#description',
+            (el) => el.textContent
+        );
         return description;
     } catch (error) {
         console.error('Error extracting description:', error);
@@ -32,18 +35,23 @@ async function extractDescription(page) {
 async function extractKyuLevel(page) {
     try {
         // Extract the description element's content
-        const kyu = await page.$eval('.inner-small-hex > span', el => el.textContent);
+        const kyu = await page.$eval(
+            '.inner-small-hex > span',
+            (el) => el.textContent
+        );
         return kyu;
     } catch (error) {
         console.error('Error extracting description:', error);
     }
 }
 
-
 async function extractTitle(page) {
     try {
         // Extract the description element's content
-        const title = await page.$eval('.game-title h4', el => el.textContent);
+        const title = await page.$eval(
+            '.game-title h4',
+            (el) => el.textContent
+        );
         return title;
     } catch (error) {
         console.error('Error extracting description:', error);
@@ -53,6 +61,7 @@ async function extractTitle(page) {
 async function saveDescriptionToFile(description, folderPath, filename) {
     try {
         const filePath = path.join(folderPath, filename);
+        fs.mkdirSync(path.dirname(filePath), { recursive: true });
         fs.writeFileSync(filePath, description, 'utf8');
         console.log(`Description saved to ${filePath}`);
     } catch (error) {
@@ -65,9 +74,9 @@ function copyPasteFile(source, dest) {
         if (err) {
             console.error("Couldn't copy file: ", err);
         } else {
-            console.log("Copied!")
+            console.log('Copied!');
         }
-    })    
+    });
 }
 
 async function main(args) {
@@ -75,15 +84,18 @@ async function main(args) {
     // const { browser, page } = await codeWars('https://www.codewars.com/kata/53da3dbb4a5168369a0000fe/train/javascript');
     // const { browser, page } = await codeWars('https://www.codewars.com/kata/526d84b98f428f14a60008da/train/javascript');
     const { browser, page } = await codeWars(args[0]);
-    
+
     const description = await extractDescription(page);
     let kyu = await extractKyuLevel(page);
     // One way of trimming the space between the number and kyu xD
     kyu = kyu[0].concat('kyu');
     let title = await extractTitle(page);
     // But I can't cheat it the same way with the title T.T
-    title = title.replace(/[^a-zA-Z0-9\s]/g, "").replace(/\s/g, "_").toLowerCase()
-    console.log(description)
+    title = title
+        .replace(/[^a-zA-Z0-9\s]/g, '')
+        .replace(/\s/g, '_')
+        .toLowerCase();
+    console.log(description);
 
     const folderPath = path.join(__dirname, '..', kyu, title);
 
@@ -95,10 +107,14 @@ async function main(args) {
     });
 
     // Save the description to a text file
-    await saveDescriptionToFile(description.concat("\n").concat(args[0]), folderPath, `${title}.md`);
+    await saveDescriptionToFile(
+        description.concat('\n').concat(args[0]),
+        folderPath,
+        `${title}.md`
+    );
 
-    const tempJS = path.join(__dirname, 'temp.js')
-    const destJS = path.join(folderPath, `${title}.js`)
+    const tempJS = path.join(__dirname, 'temp.js');
+    const destJS = path.join(folderPath, `${title}.js`);
     copyPasteFile(tempJS, destJS);
 
     // Close the browser
