@@ -12,3 +12,6 @@ Valid smiley face examples: :) :D ;-D :~)
 Invalid smiley faces: ;( :> :} :]
 
 # My Journal
+
+I will first generate an array consisting of all valid smiley faces.
+Then I compare each element of argument if the all valid smiley faces includes it.
